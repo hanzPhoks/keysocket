@@ -1,19 +1,24 @@
 function onKeyPress(key) {
+    var iframe = document.getElementById('playQueue');
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-  if (key === NEXT) {
-    var nextButton = document.getElementById('player_control_next');
-    simulateClick(nextButton);
-  } else if (key === PLAY) {
-    var isPlaying = document.getElementById('player_control_play').style.display === 'none';
-    var playPauseButton = null;
-    if (isPlaying) {
-      playPauseButton = document.getElementById('player_control_pause');
-    } else {
-      playPauseButton = document.getElementById('player_control_play');
+    if (key === NEXT) {
+        var nextButton = innerDoc.getElementById('nextButton');
+        simulateClick(nextButton);
+    } else if (key === PLAY) {
+        var isPlaying = innerDoc.getElementById('startButton').style.display === 'none';
+        var playPauseButton = null;
+        if (isPlaying) {
+            playPauseButton = innerDoc.getElementById('stopButton');
+        } else {
+            playPauseButton = innerDoc.getElementById('startButton');
+        }
+        simulateClick(playPauseButton);
+    } else if (key === PREV) {
+        var backButton = innerDoc.getElementById('previousButton');
+        simulateClick(backButton);
+    } else if (key === STOP) {
+        var stopButton = innerDoc.getElementById('stopButton');
+        simulateClick(stopButton);
     }
-    simulateClick(playPauseButton);
-  } else if (key === PREV) {
-    var backButton = document.getElementById('player_control_prev');
-    simulateClick(backButton);
-  }
 }
